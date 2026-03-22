@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('dropZone');
     const productImage = document.getElementById('productImage');
     const toastContainer = document.getElementById('toastContainer');
+    const navbar = document.querySelector('.navbar');
 
     // ==== Auth Logic (Mock) ====
     loginForm.addEventListener('submit', (e) => {
@@ -44,6 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerHTML = originalText;
             btn.style.opacity = '1';
             btn.disabled = false;
+
+            // Show the navbar after login
+            navbar.classList.remove('hidden');
         }, 1200);
     });
 
@@ -57,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
             loginPage.classList.remove('hidden');
             void loginPage.offsetWidth;
             loginPage.classList.add('active-view');
+
+            // Hide the navbar on logout
+            navbar.classList.add('hidden');
         }, 500);
     });
 
@@ -155,4 +162,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, 4000);
     }
+
+    // Navbar Navigation
+    const navLinks = {
+        navRegistrar: document.getElementById('navRegistrar'),
+        navHistorial: document.getElementById('navHistorial'),
+        navEstadisticas: document.getElementById('navEstadisticas')
+    };
+
+    const views = {
+        loginPage: document.getElementById('loginPage'),
+        historialPage: document.getElementById('historialPage'),
+        estadisticasPage: document.getElementById('estadisticasPage')
+    };
+
+    Object.keys(navLinks).forEach((key) => {
+        navLinks[key].addEventListener('click', () => {
+            // Remove active class from all links
+            Object.values(navLinks).forEach(link => link.classList.remove('active'));
+            navLinks[key].classList.add('active');
+
+            // Hide all views
+            Object.values(views).forEach(view => view.classList.add('hidden'));
+
+            // Show the selected view
+            const viewId = key.replace('nav', '').toLowerCase() + 'Page';
+            views[viewId].classList.remove('hidden');
+        });
+    });
 });
