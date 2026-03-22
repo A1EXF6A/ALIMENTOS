@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yura | Gestión de Excedentes</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- MAIN LOGIN VIEW -->
+    <section id="loginPage" class="page-view active-view">
+        <div class="glass-container login-box">
+            <div class="brand">
+                <i class="ph ph-leaf brand-icon"></i>
+                <h1>Yura</h1>
+            </div>
+            <p class="subtitle">Accede a tu cuenta para gestionar excedentes alimentarios.</p>
+            
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label for="email">Correo Electrónico</label>
+                    <div class="input-wrapper">
+                        <i class="ph ph-envelope"></i>
+                        <input type="email" id="email" placeholder="negocio@ejemplo.com" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-wrapper">
+                        <i class="ph ph-lock"></i>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full shadow-glow">
+                    <span>Iniciar Sesión</span>
+                    <i class="ph ph-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+        
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </section>
+
+
+    <!-- DASHBOARD VIEW -->
+    <section id="dashboardPage" class="page-view hidden">
+        <nav class="glass-nav">
+            <div class="nav-brand">
+                <i class="ph ph-leaf"></i>
+                <span>Yura Partner</span>
+            </div>
+            <div class="nav-profile">
+                <span class="user-greeting">Hola, <strong id="userNameDisplay">Negocio</strong></span>
+                <div class="avatar">
+                    <i class="ph ph-storefront"></i>
+                </div>
+                <button id="logoutBtn" title="Cerrar sesión" class="btn-icon">
+                    <i class="ph ph-sign-out"></i>
+                </button>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <h2>Registrar Excedente</h2>
+                <p>Publica los alimentos que no pudiste vender hoy para evitar el desperdicio.</p>
+            </header>
+
+            <div class="glass-container form-card">
+                <form id="surplusForm" class="dashboard-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="productName">Nombre del Producto</label>
+                            <input type="text" id="productName" placeholder="Ej: Pan artesanal" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="category">Categoría</label>
+                            <div class="select-wrapper">
+                                <select id="category" required>
+                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                    <option value="panaderia">Panadería y Pastelería</option>
+                                    <option value="frutas">Frutas y Verduras</option>
+                                    <option value="platos">Platos Preparados</option>
+                                    <option value="lacteos">Lácteos</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                                <i class="ph ph-caret-down"></i>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="quantity">Cantidad Disponible</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="quantity" min="1" placeholder="Ej: 5" required>
+                                <span class="input-suffix">Unid.</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="expirationTime">Hora Límite de Recogida</label>
+                            <div class="input-wrapper">
+                                <i class="ph ph-clock"></i>
+                                <input type="time" id="expirationTime" required>
+                            </div>
+                        </div>
+
+                        <div class="input-group col-span-2">
+                            <label for="originalPrice">Precio Original (Opcional) y Precio Oferta</label>
+                            <div class="price-inputs">
+                                <div class="input-wrapper">
+                                    <span class="input-prefix">$</span>
+                                    <input type="number" id="originalPrice" step="0.01" placeholder="0.00">
+                                </div>
+                                <i class="ph ph-arrow-right dim-icon"></i>
+                                <div class="input-wrapper">
+                                    <span class="input-prefix">$</span>
+                                    <input type="number" id="discountPrice" step="0.01" placeholder="0.00" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group col-span-2">
+                            <label>Fotografía del Producto</label>
+                            <div class="file-upload-wrapper" id="dropZone">
+                                <i class="ph ph-image text-3xl"></i>
+                                <span>Arrastra una imagen o <strong>haz clic para buscar</strong></span>
+                                <input type="file" id="productImage" accept="image/*" class="hidden-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full mt-6 shadow-glow">
+                        <i class="ph ph-check-circle"></i>
+                        <span>Publicar Excedente</span>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </section>
+
+    <!-- Local Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
